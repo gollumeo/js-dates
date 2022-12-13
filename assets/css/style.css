@@ -6,6 +6,10 @@
   font-family: "Montserrat Alternates", sans-serif;
 }
 
+.numbers {
+  margin: 5vw 5vw;
+}
+
 .displaydate {
   margin: 0 auto;
   margin-top: 5vh;
@@ -24,9 +28,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: -5px 4px 3px rgba(0, 0, 0, 0.418);
   font-weight: 900;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  color: gray;
 }
 .displaydate #time .seconds {
   font-size: 0.8rem;

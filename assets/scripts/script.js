@@ -87,12 +87,11 @@ input.addEventListener("keyup", function () {
 //////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
 
-let is24Hour = false;
-let currentTime;
-
 let hours,
     minutes,
-    seconds;
+    seconds,
+    is24Hour = false,
+    currentTime;
 
 function displayDate() {
     currentTime = new Date()
@@ -105,22 +104,21 @@ function displayDate() {
     minutes = (minutes < 10) ? "0" + minutes : minutes;
     seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-    // Get the current date and time
-    // let currentTime = new Date();
-
+    // Retrieve and shorten infos to be displayed
     let day = currentTime.toLocaleDateString("en-US", { weekday: "short" })
     let dateDay = currentTime.getUTCDate();
     let month = currentTime.toLocaleDateString("en-US", { month: "short" })
     let year = currentTime.getFullYear();
 
-    document.getElementsByClassName("hour")[0].innerText = hours + ":"
-    document.getElementsByClassName("minutes")[0].innerText = minutes + ":"
-    document.getElementsByClassName("seconds")[0].innerText = seconds
-
+    // Pad dates with leading zeroes, if necessary
     if (dateDay < 10) {
         dateDay = "0" + dateDay
     }
 
+    // Append previous data to our HTML
+    document.getElementsByClassName("hour")[0].innerText = hours + ":"
+    document.getElementsByClassName("minutes")[0].innerText = minutes + ":"
+    document.getElementsByClassName("seconds")[0].innerText = seconds
     document.getElementsByClassName("day")[0].innerHTML = day;
     document.getElementsByClassName("date")[0].innerHTML = dateDay + "<br>" + month;
     document.getElementsByClassName("year")[0].innerHTML = year;
