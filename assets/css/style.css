@@ -1,0 +1,22 @@
+* {
+  background-color: rgb(230, 253, 245);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.displaydate {
+  margin: 0 auto;
+  margin-top: 5vh;
+  text-align: center;
+  border: 1px black solid;
+  height: 20vh;
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.displaydate #time {
+  position: absolute;
+  margin-left: 22vw;
+}/*# sourceMappingURL=style.css.map */
