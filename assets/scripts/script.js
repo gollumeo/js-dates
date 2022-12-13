@@ -68,7 +68,7 @@ futureDate(80000);
 
 const input = document.getElementById("hours-input");
 
-console.log(input)
+
 
 input.addEventListener("keyup", function () {
     const hours = input.value;
@@ -84,51 +84,53 @@ input.addEventListener("keyup", function () {
 function displayDate() {
     // Get the current date and time
     let currentTime = new Date();
+    let is24Hour = false
+    const TIME = document.getElementById("time");
 
-    // Extract the hours, minutes, and seconds from the current time
-    let hours = currentTime.getHours();
-    let minutes = currentTime.getMinutes();
-    let seconds = currentTime.getSeconds();
-    let day = currentTime.getDay();
+    let day = currentTime.toLocaleDateString("en-US", { weekday: "short" })
+    let dateDay = currentTime.getUTCDate();
+    let month = currentTime.toLocaleDateString("en-US", { month: "short" })
+    let year = currentTime.getFullYear();
 
-    // Determine if the current time should be displayed in 12-hour or 24-hour format
-    let timeFormat = (hours < 12) ? "AM" : "PM";
-
-    // Convert hours from 24-hour to 12-hour format, if necessary
-    hours = (hours > 12) ? hours - 12 : hours;
+    let hours = currentTime.getHours(),
+        minutes = currentTime.getMinutes(),
+        seconds = currentTime.getSeconds();
 
     // Pad minutes and seconds with leading zeroes, if necessary
     minutes = (minutes < 10) ? "0" + minutes : minutes;
     seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-    // Build the final time string
-    let currentTimeString = hours + ":" + minutes + ":" + seconds + " " + timeFormat;
+    if (is24Hour) {
+        document.getElementsByClassName("hour")[0].innerText = hours + ":"
+        document.getElementsByClassName("minutes")[0].innerText = minutes + ":"
+        document.getElementsByClassName("seconds")[0].innerText = seconds
+    }
+    else {
+        let suffix = hours >= 12 ? "PM" : "AM",
+            hours12 = hours % 12;
 
-    // Update the page with the current time
-    // document.getElementById("time").innerHTML = currentTimeString;
+        document.getElementsByClassName("hour")[0].innerText = hours12 + ":"
+        document.getElementsByClassName("minutes")[0].innerText = minutes + ":"
+        document.getElementsByClassName("seconds")[0].innerText = seconds + " "
+        document.getElementsByClassName("suffix")[0].innerText = suffix
+    }
 
-    document.getElementsByClassName("hour")[0].innerHTML = hours + ":";
-    document.getElementsByClassName("minutes")[0].innerHTML = minutes + ":";
-    document.getElementsByClassName("seconds")[0].innerHTML = seconds;
+    if (dateDay < 10) {
+        dateDay = "0" + dateDay
+    }
+
+    let changeFormat = function () {
+        is24Hour = !is24Hour;
+        console.log("coucou")
+    };
+
+    TIME.addEventListener('click', changeFormat);
+
+    document.getElementsByClassName("day")[0].innerHTML = day;
+    document.getElementsByClassName("date")[0].innerHTML = dateDay + "<br>" + month;
+    document.getElementsByClassName("year")[0].innerHTML = year;
 
 }
 
 // Update the time every second
 setInterval(displayDate, 1000);
-
-const timeElement = document.getElementById('time');
-
-// timeElement.addEventListener('click', function () {
-//     // Get the current hour
-//     const currentHour = new Date().getHours();
-//     const currentMinutes = new Date().getMinutes();
-
-//     if (currentHour > 12) {
-//         // Display the time in 24-hours format
-//         timeElement.innerHTML = currentHour + currentMinutes + "";
-//     } else {
-//         // Display the time in 12-hours format
-//         timeElement.innerHTML = currentHour + currentMinutes + "AM";
-//     }
-// });
-
