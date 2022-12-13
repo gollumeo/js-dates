@@ -20,11 +20,17 @@
 }
 .displaydate #time {
   position: absolute;
-  margin-left: 120px;
+  margin-left: 18vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-shadow: -5px 4px 3px rgba(0, 0, 0, 0.418);
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+.displaydate #time .seconds {
+  font-size: 0.8rem;
+  margin-top: 8px;
 }
 .displaydate div {
   height: 50px;

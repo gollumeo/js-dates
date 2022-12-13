@@ -81,56 +81,78 @@ input.addEventListener("keyup", function () {
 });
 
 
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+///////////               EXERCICE 3                //////////////
+//////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
+
+let is24Hour = false;
+let currentTime;
+
+let hours,
+    minutes,
+    seconds;
+
 function displayDate() {
+    currentTime = new Date()
+
+    hours = currentTime.getHours()
+    minutes = currentTime.getMinutes()
+    seconds = currentTime.getSeconds();
+
+    // Pad minutes and seconds with leading zeroes, if necessary
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
     // Get the current date and time
-    let currentTime = new Date();
-    let is24Hour = false
-    const TIME = document.getElementById("time");
+    // let currentTime = new Date();
 
     let day = currentTime.toLocaleDateString("en-US", { weekday: "short" })
     let dateDay = currentTime.getUTCDate();
     let month = currentTime.toLocaleDateString("en-US", { month: "short" })
     let year = currentTime.getFullYear();
 
-    let hours = currentTime.getHours(),
-        minutes = currentTime.getMinutes(),
-        seconds = currentTime.getSeconds();
+    document.getElementsByClassName("hour")[0].innerText = hours + ":"
+    document.getElementsByClassName("minutes")[0].innerText = minutes + ":"
+    document.getElementsByClassName("seconds")[0].innerText = seconds
 
-    // Pad minutes and seconds with leading zeroes, if necessary
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
+    if (dateDay < 10) {
+        dateDay = "0" + dateDay
+    }
+
+    document.getElementsByClassName("day")[0].innerHTML = day;
+    document.getElementsByClassName("date")[0].innerHTML = dateDay + "<br>" + month;
+    document.getElementsByClassName("year")[0].innerHTML = year;
+
+    let suffix = hours >= 12 ? "PM" : "AM",
+        hours12 = hours % 12;
+
 
     if (is24Hour) {
         document.getElementsByClassName("hour")[0].innerText = hours + ":"
         document.getElementsByClassName("minutes")[0].innerText = minutes + ":"
         document.getElementsByClassName("seconds")[0].innerText = seconds
+        document.getElementsByClassName("suffix")[0].innerText = ""
+
     }
     else {
-        let suffix = hours >= 12 ? "PM" : "AM",
-            hours12 = hours % 12;
-
         document.getElementsByClassName("hour")[0].innerText = hours12 + ":"
         document.getElementsByClassName("minutes")[0].innerText = minutes + ":"
         document.getElementsByClassName("seconds")[0].innerText = seconds + " "
         document.getElementsByClassName("suffix")[0].innerText = suffix
     }
 
-    if (dateDay < 10) {
-        dateDay = "0" + dateDay
-    }
-
-    let changeFormat = function () {
-        is24Hour = !is24Hour;
-        console.log("coucou")
-    };
-
-    TIME.addEventListener('click', changeFormat);
-
-    document.getElementsByClassName("day")[0].innerHTML = day;
-    document.getElementsByClassName("date")[0].innerHTML = dateDay + "<br>" + month;
-    document.getElementsByClassName("year")[0].innerHTML = year;
-
 }
+
+const TIME = document.getElementById("time");
+
+
+let changeFormat = function () {
+    is24Hour = !is24Hour
+};
+
+TIME.addEventListener('click', changeFormat);
 
 // Update the time every second
 setInterval(displayDate, 1000);
